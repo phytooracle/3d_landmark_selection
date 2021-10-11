@@ -1,3 +1,4 @@
+import pdb
 from json import load
 from cv2 import boundingRect
 from utils import *
@@ -6,12 +7,15 @@ from config import Config
 
 def main():
 
+    conf = Config() # This contains command line arguments, and phytooracle_data classes.
+
     #orth_path = '/home/ariyan/Desktop/LandmarkSelection/2020-03-01_ortho_10pct_cubic.tif'
-    conf = Config()
     orth_path = conf.ortho.get_ortho_for_date(conf.args.scan)
 
-    meta_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_metadata/metadata"
-    down_sampled_merged_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_merged_downsampled_preprocessed/merged_downsampled"
+    #meta_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_metadata/metadata"
+    meta_path = conf.three_dee.get_preprocessed_metadata_for_date(conf.args.scan)
+    #down_sampled_merged_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_merged_downsampled_preprocessed/merged_downsampled"
+    down_sampled_merged_path = conf.three_dee.get_preprocessed_downsampled_merged_for_date(conf.args.scan)
 
     boundaries = read_tags(orth_path)
     print(get_gps_distance(boundaries['UL'],boundaries['UR']))

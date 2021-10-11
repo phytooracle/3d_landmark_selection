@@ -5,7 +5,7 @@ import math
 
 def load_ortho(path):
     img = tifffile.imread(path)
-    img[:,0], img[:,2] = img[:,2], img[:,0]
+    img = cv2.cvtColor(img,cv2.COLOR_RGB2BGR)
     return img
 
 def down_scale_ortho(ortho,scale):
@@ -64,8 +64,35 @@ def get_gps_distance(p1,p2):
 
     return R*c
 
-def visualize_ortho(ortho):
-    cv2.namedWindow("Ortho")
-    cv2.resizeWindow("Ortho",200,100)
-    cv2.imshow("Ortho",ortho)
-    cv2.waitKey(0)
+def get_mouse_position(event,x,y,flags,param):
+    global mouseX,mouseY
+    if event == cv2.EVENT_LBUTTONDBLCLK:
+        gps = get_GPS_location([x,y],param['boundaries'],param['width'],param['height'])
+        param['list_points'].append(gps)
+        
+
+def get_GPS_location(point,boundaries,w,h):
+    GPS_height = boundaries['UL'][1]-boundaries['LL'][1]
+    GPS_width = boundaries['UR'][0]-boundaries['UL'][0]
+    
+    return point[0]*GPS_width/w+boundaries['UL'][0],boundaries['UL'][1]-point[1]*GPS_height/h
+
+def visualize_ortho_get_point_pairs(ortho,boundaries):
+    
+    cv2.namedWindow("Ortho", cv2.WINDOW_NORMAL)
+    cv2.setWindowProperty("Name", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN);
+    
+    params = {'boundaries':boundaries,'width':ortho.shape[1],'height':ortho.shape[0],'list_points':[]}
+    
+    cv2.setMouseCallback("Ortho",get_mouse_position,params)
+    
+    while True:
+        cv2.imshow("Ortho",ortho)
+        res = cv2.waitKey(0)
+        print(params['list_points'])
+
+        if res == 113:
+            break
+    
+
+    

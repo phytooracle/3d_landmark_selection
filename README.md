@@ -8,4 +8,4 @@ cd 3d_psuedo_GCP_selection.git
 cp sample.env .env
 ```
 
-Edit .env so that it points to where you put phytooracle_data, and where you want to (or already do) store data.
+Edit .env so that it points to where you put the phytooracle_data repo, *and* where you want to (or already do) store data.

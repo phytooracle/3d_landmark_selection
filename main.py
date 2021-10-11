@@ -10,6 +10,9 @@ def main():
     conf = Config()
     orth_path = conf.ortho.get_ortho_for_date(conf.args.scan)
 
+    meta_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_metadata/metadata"
+    down_sampled_merged_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_merged_downsampled_preprocessed/merged_downsampled"
+
     boundaries = read_tags(orth_path)
     print(get_gps_distance(boundaries['UL'],boundaries['UR']))
     print(get_gps_distance(boundaries['UL'],boundaries['LL']))

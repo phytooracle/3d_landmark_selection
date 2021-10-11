@@ -8,10 +8,10 @@ def main():
 
     #orth_path = '/home/ariyan/Desktop/LandmarkSelection/2020-03-01_ortho_10pct_cubic.tif'
 
-    season = 10
-    conf = Config(season)
-    date = "2020-03-01"
-    orth_path = conf.ortho.get_ortho_for_date(date)
+    #season = 10
+    conf = Config()
+    #date = "2020-03-01"
+    orth_path = conf.ortho.get_ortho_for_date(conf.args.scan)
 
     boundaries = read_tags(orth_path)
     print(get_gps_distance(boundaries['UL'],boundaries['UR']))

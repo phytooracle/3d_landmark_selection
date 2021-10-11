@@ -1,4 +1,5 @@
 import sys
+import argparse
 
 class Config(object):
     def __init__(self, season=10):
@@ -34,11 +35,35 @@ class Config(object):
             print("You need to install phytooracle_data (and tell me where it is with .env)")
             print("https://github.com/phytooracle/phytooracle_data")
             sys.exit(0)
+
+        self.handle_command_line_aruments()
     
-        self.ortho     = stereoTop.Ortho(season=season)
-        self.three_dee = scanner3dTop.Scanner3dTop(season=season)
-        self.rgb       = rgb.RGB_Data(season=season)
+        self.ortho     = stereoTop.Ortho(season=self.args.season)
+        self.three_dee = scanner3dTop.Scanner3dTop(season=self.args.season)
+        self.rgb       = rgb.RGB_Data(season=self.args.season)
 
         self.dotenv = parsed_dotenv
 
 
+
+    def handle_command_line_aruments(self):
+        parser = argparse.ArgumentParser(
+            description='GUI for 3d manual goecorrection.',
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+        parser.add_argument('-s',
+                            '--scan',
+                            help='The 3D scan date for processing',
+                            default = "2020-03-01",
+                            metavar='scan',
+                            required=False)
+
+        parser.add_argument('-S',
+                            '--season',
+                            help='The season (e.g. 10)',
+                            metavar='season',
+                            default=10,
+                            type=int,
+                            required=False)
+
+        self.args = parser.parse_args()

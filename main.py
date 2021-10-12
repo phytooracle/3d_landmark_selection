@@ -20,11 +20,12 @@ def main():
         print(f"Didn't find {conf.args.scan} in the current season ortho scan dates.")
         from phytooracle_data import find_nearest_date
         nearest_date = find_nearest_date(valid_ortho_dates, conf.args.scan)
-        conf.args.scan = nearest_date.strftime("%Y-%m-%d")
+        rgb_date = nearest_date.strftime("%Y-%m-%d")
         print(f"  ... We will use this date instead: {conf.args.scan}")
-        
+    else:
+        rgb_date = conf.args.scan
     
-    orth_path = conf.ortho.get_ortho_for_date(conf.args.scan)
+    orth_path = conf.ortho.get_ortho_for_date(rgb_date)
     meta_path = conf.three_dee.get_preprocessed_metadata_for_date(conf.args.scan)
     down_sampled_merged_path = conf.three_dee.get_preprocessed_downsampled_merged_for_date(conf.args.scan)
 

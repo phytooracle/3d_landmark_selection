@@ -7,6 +7,7 @@ import glob
 import json
 import numpy as np
 import open3d as o3d
+from scipy.optimize import lsq_linear
 from pyproj import Proj,transform
 proj_4326 = Proj(init='epsg:4326')
 proj_2151 = Proj(init='epsg:2152')
@@ -97,6 +98,11 @@ def get_mouse_position(event,x,y,flags,param):
                 matched_point = {'correct_gps':gps,'3d_coord':selected_3d_point[:2],'approximate_gps':apprx}
                 print(matched_point)
                 param['list_points'].append(matched_point)
+        mouseX = -1
+        mouseY = -1
+    elif event == cv2.EVENT_MBUTTONDOWN:
+        mouseX = x
+        mouseY = y
         
 def get_GPS_location(point,boundaries,w,h):
     GPS_height = boundaries['UL'][1]-boundaries['LL'][1]
@@ -132,8 +138,8 @@ def draw_3d_boundaries_on_ortho(ortho,boundaries,meta_dict):
     p2 = (int((right-left)*width/gps_width)+p1[0],int((up-down)*height/gps_height)+p1[1])
     
     overlay = ortho.copy()
-    cv2.rectangle(ortho,p1,p2,(0,0,255),40)
-    cv2.rectangle(overlay,p1,p2,(150,150,150),-1)
+    cv2.rectangle(ortho,p1,p2,(0,0,255),20)
+    cv2.rectangle(overlay,p1,p2,(200,200,200),-1)
     ortho = cv2.addWeighted(overlay, 0.3, ortho, 0.7, 0)
 
     return ortho
@@ -157,31 +163,41 @@ def visualize_pcds(pcd_names,pcds_path):
         return np.array(pcd.points)[selected_index[0]]
 
 def visualize_ortho_get_point_pairs(ortho,boundaries,meta_dict,pcd_path):
-    
+    global mouseX, mouseY
+
+    mouseX = -1
+    mouseY = -1
+
     cv2.namedWindow("Ortho", cv2.WINDOW_GUI_EXPANDED)
     cv2.setWindowProperty("Name", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN);
     cv2.resizeWindow("Ortho",500,1000)
 
-    params = {'boundaries':boundaries,'width':ortho.shape[1],'height':ortho.shape[0],'list_points':[],'meta_dict':meta_dict,'pcd_path':pcd_path}
-    
+    ortho = draw_3d_boundaries_on_ortho(ortho,boundaries,meta_dict)
+    org_ortho = ortho.copy()
+
+    params = {'boundaries':boundaries,'width':ortho.shape[1],'height':ortho.shape[0],'list_points':[],'meta_dict':meta_dict,'pcd_path':pcd_path,'ortho':ortho}
     cv2.setMouseCallback("Ortho",get_mouse_position,params)
     
-    ortho = draw_3d_boundaries_on_ortho(ortho,boundaries,meta_dict)
-
     while True:
+        if mouseX != -1:
+            cv2.circle(ortho,(mouseX,mouseY),7,(255,0,0),-1)
+        else:
+            ortho = org_ortho.copy()        
+
         cv2.imshow("Ortho",ortho)
-        res = cv2.waitKey(0)
-        print(params['list_points'])
+        res = cv2.waitKey(10)
 
         if res == 113:
             break
+    
+    return params['list_points']
     
 def transform_point_to_GPS(point):
     T = np.array([[9.92386804e-04,8.28480420e-06,4.08975523e+05],[7.04730386e-06,9.35075874e-04,3.65996863e+06]])
     transformed_point = np.matmul(T,point)
     return transformed_point
 
-def transform_boundaries(boundaries):
+def transform_pcd_boundaries(boundaries):
     SW = [boundaries['mins'][0],boundaries['mins'][1],1]
     NE = [boundaries['maxs'][0],boundaries['maxs'][1],1]
     NW = [boundaries['mins'][0],boundaries['maxs'][1],1]
@@ -202,7 +218,7 @@ def read_and_transform_all_pcd_boundaries(meta_path):
         meta_json_path = glob.glob(os.path.join(meta_path,folder,"*.json"))[0]
         with open(meta_json_path,"r") as f:
             metadata = json.load(f)
-            metadata["gps_boundaries"] = transform_boundaries(metadata['boundaries'])
+            metadata["gps_boundaries"] = transform_pcd_boundaries(metadata['boundaries'])
             pcd_GPS_boundaries[folder] = metadata
 
     return pcd_GPS_boundaries
@@ -212,7 +228,70 @@ def get_list_pcd_close_to_point(point,metadata_dict):
     for folder in metadata_dict:
         meta = metadata_dict[folder]
         if point[0]>meta['gps_boundaries']['SW'][0] and point[0]<meta['gps_boundaries']['NE'][0] and\
-            point[1]>meta['gps_boundaries']['SW'][1] and point[1]<meta['gps_boundaries']['NE'][1]:
+            point[1]>meta['gps_boundaries']['SW'][1]-0.5 and point[1]<meta['gps_boundaries']['NE'][1]+0.5:
             folders.append(folder)
 
     return folders
+
+def estimate_transformation(list_matched_points):
+    src = []
+    dst = []
+
+    for m in list_matched_points:
+        src.append([m['3d_coord'][0],m['3d_coord'][1]])
+        dst.append([m['correct_gps'][0],m['correct_gps'][1]])
+
+    if len(src)<3:
+        print(":: Cannot estimate transformations with less than 3 points.")
+        return None
+
+    src = np.array(src)
+    dst = np.array(dst)
+    
+    A = []
+    b = []
+
+    for i,p1 in enumerate(src):
+
+        p2 = dst[i]
+
+        A.append([p1[0],p1[1],1,0,0,0])
+        b.append(p2[0])
+
+        A.append([0,0,0,p1[0],p1[1],1])
+        b.append(p2[1])
+
+    A = np.array(A)
+    b = np.array(b)
+
+    res = lsq_linear(A, b)
+    X = res.x
+
+    T = X.reshape((2,3))
+
+    print("-------------------------")   
+    
+    diffs = []
+
+    for i,s in enumerate(src):
+        new_d = np.matmul(T,[s[0],s[1],1])
+        diff = [dst[i][0]-new_d[0],dst[i][1]-new_d[1]]
+        diffs.append(diff)
+        print("Actual, Mapped and difference: ",dst[i],[new_d[0],new_d[1]],diff)
+
+    diffs = np.array(diffs)
+    means = np.mean(np.abs(diffs),axis=0)
+    print("Mean Difference in easting and northing directions: ",means)
+
+    if means[0]>0.05 or means[1]>0.05:
+        print(":: Transformation error is more than the threshold. Cannot continue with this set of points.")
+        return None
+    
+    print("Transformation:")
+    print(T)
+
+    return T
+
+def save_transformation(T,path):
+    with open(path,"w") as f:
+        json.dump({"transformation":T.tolist()},f)

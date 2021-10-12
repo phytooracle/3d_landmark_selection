@@ -40,7 +40,7 @@ class Config(object):
     
         self.ortho     = stereoTop.Ortho(season=self.args.season)
         self.three_dee = scanner3dTop.Scanner3dTop(season=self.args.season)
-        self.rgb       = rgb.RGB_Data(season=self.args.season)
+        #self.rgb       = rgb.RGB_Data(season=self.args.season)
 
         self.dotenv = parsed_dotenv
 

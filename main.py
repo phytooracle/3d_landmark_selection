@@ -13,6 +13,16 @@ def main():
     #down_sampled_merged_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_merged_downsampled_preprocessed/merged_downsampled"
     #meta_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_metadata/metadata"
     transformation_path = "/home/ariyan/Desktop/LandmarkSelection/season_10_lettuce_yr_2020/level_1/scanner3DTop/2020-03-01/preprocessing/transfromation.json"
+
+    valid_ortho_dates = conf.ortho.get_dates()
+
+    if conf.args.scan not in valid_ortho_dates:
+        print(f"Didn't find {conf.args.scan} in the current season ortho scan dates.")
+        from phytooracle_data import find_nearest_date
+        nearest_date = find_nearest_date(valid_ortho_dates, conf.args.scan)
+        conf.args.scan = nearest_date.strftime("%Y-%m-%d")
+        print(f"  ... We will use this date instead: {conf.args.scan}")
+        
     
     orth_path = conf.ortho.get_ortho_for_date(conf.args.scan)
     meta_path = conf.three_dee.get_preprocessed_metadata_for_date(conf.args.scan)

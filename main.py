@@ -12,7 +12,7 @@ def main():
     #orth_path = '/home/ariyan/Desktop/LandmarkSelection/2020-03-01_ortho_10pct_cubic.tif'
     #down_sampled_merged_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_merged_downsampled_preprocessed/merged_downsampled"
     #meta_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_metadata/metadata"
-    transformation_path = "/home/ariyan/Desktop/LandmarkSelection/season_10_lettuce_yr_2020/level_1/scanner3DTop/2020-03-01/preprocessing/transfromation.json"
+    transformation_path = "/media/ariyan/Data/University/IVILAB/Phytooracle/Phytooracle_data/season_10_lettuce_yr_2020/level_1/scanner3DTop/2020-02-29/preprocessing/transformation.json"
 
     valid_ortho_dates = conf.ortho.get_dates()
 
@@ -36,8 +36,9 @@ def main():
     list_matched_points = visualize_ortho_get_point_pairs(ortho,boundaries,meta_dict,down_sampled_merged_path)
 
     T = estimate_transformation(list_matched_points)
+   
     if T is not None:
-        save_transformation(T,transformation_path)
+        save_transformation(T,transformation_path,conf.args.scan)
     else:
         print(":: Unable to estimate transformation. Try again with more scatter points. ")
     # upload happens here

@@ -1,4 +1,4 @@
-import pdb
+import pdb, sys
 from json import load
 from cv2 import boundingRect
 from utils import *
@@ -12,7 +12,11 @@ def main():
     #orth_path = '/home/ariyan/Desktop/LandmarkSelection/2020-03-01_ortho_10pct_cubic.tif'
     #down_sampled_merged_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_merged_downsampled_preprocessed/merged_downsampled"
     #meta_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_metadata/metadata"
-    transformation_path = "/home/ariyan/Desktop/LandmarkSelection/season_10_lettuce_yr_2020/level_1/scanner3DTop/2020-03-01/preprocessing/transfromation.json"
+    #transformation_path = "/home/ariyan/Desktop/LandmarkSelection/season_10_lettuce_yr_2020/level_1/scanner3DTop/2020-03-01/preprocessing/transfromation.json"
+
+    if conf.args.scan not in conf.three_dee.get_dates():
+        print("ERROR: Invalid date selected.  No 3d scan found for that date")
+        sys.exit(0);
 
     valid_ortho_dates = conf.ortho.get_dates()
 
@@ -37,7 +41,9 @@ def main():
 
     T = estimate_transformation(list_matched_points)
     if T is not None:
+        local_transformation_json_file = conf.three_dee.local_preprocessing_transformation_json_file_path()
         save_transformation(T,transformation_path)
+        conf.three_dee.upload_transformation_json_file(transformation_path)
     else:
         print(":: Unable to estimate transformation. Try again with more scatter points. ")
     # upload happens here

@@ -31,6 +31,7 @@ conda install tifffile
 conda install gdal
 conda install pyproj
 pip install python-dotenv
+pip install imagecodecs
 ```
 
 

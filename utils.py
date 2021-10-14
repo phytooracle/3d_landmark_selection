@@ -292,6 +292,6 @@ def estimate_transformation(list_matched_points):
 
     return T
 
-def save_transformation(T,path):
+def save_transformation(T,path,date):
     with open(path,"w") as f:
-        json.dump({"transformation":T.tolist()},f)
+        json.dump({"transformation":T.tolist(),"scan_date":date},f)

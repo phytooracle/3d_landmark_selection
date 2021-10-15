@@ -16,7 +16,10 @@ def main():
     #transformation_path = "/media/ariyan/Data/University/IVILAB/Phytooracle/Phytooracle_data/season_10_lettuce_yr_2020/level_1/scanner3DTop/2020-02-29/preprocessing/transformation.json"
 
     if conf.args.scan not in conf.three_dee.get_dates():
+        print();
         print("ERROR: Invalid date selected.  No 3d scan found for that date")
+        print("Here is a list of valid dates...")
+        print(conf.three_dee.get_dates())
         sys.exit(0);
 
     valid_ortho_dates = conf.ortho.get_dates()
@@ -33,6 +36,7 @@ def main():
     orth_path = conf.ortho.get_ortho_for_date(rgb_date)
     meta_path = conf.three_dee.get_preprocessed_metadata_for_date(conf.args.scan)
     down_sampled_merged_path = conf.three_dee.get_preprocessed_downsampled_merged_for_date(conf.args.scan)
+    # preprocessed vs alignment
 
     meta_dict = read_and_transform_all_pcd_boundaries(meta_path)
     boundaries = read_tags(orth_path)
@@ -43,9 +47,10 @@ def main():
     T = estimate_transformation(list_matched_points)
    
     if T is not None:
-        local_transformation_json_file = conf.three_dee.local_preprocessing_transformation_json_file_path()
-        save_transformation(T,transformation_path,conf.args.scan)
-        conf.three_dee.upload_transformation_json_file(conf.args.scan, transformation_path)
+        breakpoint()
+        local_transformation_json_file = conf.three_dee.local_preprocessing_transformation_json_file_path(conf.args.scan)
+        save_transformation(T,local_transformation_json_file,conf.args.scan)
+        conf.three_dee.upload_transformation_json_file(conf.args.scan, local_transformation_json_file)
     else:
         print(":: Unable to estimate transformation. Try again with more scatter points. ")
     # upload happens here

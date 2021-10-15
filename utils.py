@@ -1,4 +1,5 @@
 import tifffile
+import pdb
 import cv2
 import gdal
 import math
@@ -9,6 +10,7 @@ import numpy as np
 import open3d as o3d
 from scipy.optimize import lsq_linear
 from pyproj import Proj,transform
+import matplotlib.pyplot as plt
 proj_4326 = Proj(init='epsg:4326')
 proj_2151 = Proj(init='epsg:2152')
 
@@ -126,6 +128,7 @@ def draw_3d_boundaries_on_ortho(ortho,boundaries,meta_dict):
     left = UL[0]
     right = UR[0]
 
+
     for folder in meta_dict:
         gps = meta_dict[folder]['gps_boundaries']
         up = min(UL[1],max(up, gps['NW'][1]+0.5))
@@ -133,14 +136,13 @@ def draw_3d_boundaries_on_ortho(ortho,boundaries,meta_dict):
         right = min(right, gps['NE'][0])
         left = max(left, gps['NW'][0])
 
-    
     p1 = (int((left-UL[0])*width/gps_width),int((UL[1]-up)*height/gps_height))
     p2 = (int((right-left)*width/gps_width)+p1[0],int((up-down)*height/gps_height)+p1[1])
     
     overlay = ortho.copy()
     cv2.rectangle(ortho,p1,p2,(0,0,255),20)
     cv2.rectangle(overlay,p1,p2,(200,200,200),-1)
-    ortho = cv2.addWeighted(overlay, 0.3, ortho, 0.7, 0)
+    #ortho = cv2.addWeighted(overlay, 0.3, ortho, 0.7, 0)
 
     return ortho
 
@@ -169,18 +171,23 @@ def visualize_ortho_get_point_pairs(ortho,boundaries,meta_dict,pcd_path):
     mouseY = -1
 
     cv2.namedWindow("Ortho", cv2.WINDOW_GUI_EXPANDED)
-    cv2.setWindowProperty("Name", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN);
-    cv2.resizeWindow("Ortho",500,1000)
+    #cv2.setWindowProperty("Ortho", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN);
+    cv2.resizeWindow("Ortho",500,10000)
 
     ortho = draw_3d_boundaries_on_ortho(ortho,boundaries,meta_dict)
     org_ortho = ortho.copy()
 
     params = {'boundaries':boundaries,'width':ortho.shape[1],'height':ortho.shape[0],'list_points':[],'meta_dict':meta_dict,'pcd_path':pcd_path,'ortho':ortho}
     cv2.setMouseCallback("Ortho",get_mouse_position,params)
-    
+
     while True:
         if mouseX != -1:
             cv2.circle(ortho,(mouseX,mouseY),7,(255,0,0),-1)
+            #plt.close()
+            #fig, ax = plt.subplots(1,1)
+            #ax.imgplot = plt.imshow(ortho)
+            #ax.scatter(mouseX,mouseY)
+            #plt.show(block=True)
         else:
             ortho = org_ortho.copy()        
 

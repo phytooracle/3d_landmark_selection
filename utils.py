@@ -299,6 +299,10 @@ def estimate_transformation(list_matched_points):
 
     return T
 
-def save_transformation(T,path,date):
+def save_transformation(T,path,conf):
     with open(path,"w") as f:
-        json.dump({"transformation":T.tolist(),"scan_date":date},f)
+        json.dump({
+                   "transformation":T.tolist(),
+                   "scan_date":conf.args.scan_date,
+                   "registration_method":conf.three_dee.pipeline_preprocessing_dir_to_use
+                  },f)

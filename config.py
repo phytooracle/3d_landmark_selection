@@ -40,7 +40,12 @@ class Config(object):
     
         self.ortho     = stereoTop.Ortho(season=self.args.season)
         self.three_dee = scanner3dTop.Scanner3dTop(season=self.args.season)
-        #self.rgb       = rgb.RGB_Data(season=self.args.season)
+        if self.args.alignment:
+            print("Using the pipeline's alignment/ output for 3D scans.")
+            self.three_dee.pipeline_preprocessing_dir_to_use = 'alignment'
+        else:
+            print("Using the pipeline's preprocessing/ output for 3D scans.")
+            self.three_dee.pipeline_preprocessing_dir_to_use = 'preprocessing'
 
         self.dotenv = parsed_dotenv
 
@@ -54,9 +59,9 @@ class Config(object):
         parser.add_argument('-s',
                             '--scan',
                             help='The 3D scan date for processing',
-                            default = "2020-02-29",
+                            #default = "2020-02-29",
                             metavar='scan',
-                            required=False)
+                            required=True)
 
         parser.add_argument('-S',
                             '--season',
@@ -65,5 +70,11 @@ class Config(object):
                             default=10,
                             type=int,
                             required=False)
+
+        parser.add_argument('-a',
+                            '--alignment',
+                            help='Use the alignment/ pipeline output for 3D scans.  Without this flag, preprocessing/ output is used.',
+                            action='store_true',
+                            )
 
         self.args = parser.parse_args()

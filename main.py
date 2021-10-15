@@ -36,7 +36,6 @@ def main():
     orth_path = conf.ortho.get_ortho_for_date(rgb_date)
     meta_path = conf.three_dee.get_preprocessed_metadata_for_date(conf.args.scan)
     down_sampled_merged_path = conf.three_dee.get_preprocessed_downsampled_merged_for_date(conf.args.scan)
-    # preprocessed vs alignment
 
     meta_dict = read_and_transform_all_pcd_boundaries(meta_path)
     boundaries = read_tags(orth_path)

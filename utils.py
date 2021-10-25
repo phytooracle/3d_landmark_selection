@@ -303,6 +303,6 @@ def save_transformation(T,path,conf):
     with open(path,"w") as f:
         json.dump({
                    "transformation":T.tolist(),
-                   "scan_date":conf.args.scan_date,
+                   "scan_date":conf.args.scan,
                    "registration_method":conf.three_dee.pipeline_preprocessing_dir_to_use
                   },f)

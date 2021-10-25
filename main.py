@@ -46,7 +46,6 @@ def main():
     T = estimate_transformation(list_matched_points)
    
     if T is not None:
-        breakpoint()
         local_transformation_json_file = conf.three_dee.local_preprocessing_transformation_json_file_path(conf.args.scan)
         save_transformation(T,local_transformation_json_file, conf)
         conf.three_dee.upload_transformation_json_file(conf.args.scan, local_transformation_json_file)

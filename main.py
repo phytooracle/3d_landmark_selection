@@ -29,7 +29,7 @@ def main():
         from phytooracle_data import find_nearest_date
         nearest_date = find_nearest_date(valid_ortho_dates, conf.args.scan)
         rgb_date = nearest_date.strftime("%Y-%m-%d")
-        print(f"  ... We will use this date instead: {conf.args.scan}")
+        print(f"    We will use this date instead: {rgb_date}")
     else:
         rgb_date = conf.args.scan
     

@@ -2,7 +2,6 @@ import pdb, sys
 from json import load
 from cv2 import boundingRect
 from utils import *
-from data import *
 from config import Config
 
 def main():

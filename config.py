@@ -59,7 +59,8 @@ class Config(object):
         parser.add_argument('-s',
                             '--scan',
                             help='The 3D scan date for processing',
-                            #default = "2020-02-29",
+                            #default = "2020-01-19",
+                            #default = "2020-03-02",
                             metavar='scan',
                             required=True)
 

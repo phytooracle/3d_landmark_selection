@@ -1,3 +1,4 @@
+from os import scandir
 import pdb, sys
 from json import load
 from cv2 import boundingRect
@@ -15,23 +16,42 @@ def main():
     #transformation_path = "/home/ariyan/Desktop/LandmarkSelection/season_10_lettuce_yr_2020/level_1/scanner3DTop/2020-03-01/preprocessing/transfromation.json"
     #transformation_path = "/media/ariyan/Data/University/IVILAB/Phytooracle/Phytooracle_data/season_10_lettuce_yr_2020/level_1/scanner3DTop/2020-02-29/preprocessing/transformation.json"
 
-    if conf.args.scan not in conf.three_dee.get_dates():
+    if conf.args.season == 10:
+        scan_date = conf.args.scan
+    elif conf.args.season == 12:
+        scan_date = "-".join(conf.args.scan.split("-")[1:])
+    
+    valid_ortho_dates = conf.ortho.get_dates()
+
+    if scan_date not in conf.three_dee.get_dates():
         print();
         print("ERROR: Invalid date selected.  No 3d scan found for that date")
         print("Here is a list of valid dates...")
         print(conf.three_dee.get_dates())
         sys.exit(0);
 
-    valid_ortho_dates = conf.ortho.get_dates()
-
-    if conf.args.scan not in valid_ortho_dates:
-        print(f"Didn't find {conf.args.scan} in the current season ortho scan dates.")
-        from phytooracle_data import find_nearest_date
-        nearest_date = find_nearest_date(valid_ortho_dates, conf.args.scan)
-        rgb_date = nearest_date.strftime("%Y-%m-%d")
-        print(f"    We will use this date instead: {rgb_date}")
-    else:
-        rgb_date = conf.args.scan
+    if conf.args.season == 10:
+        if scan_date not in valid_ortho_dates:
+            print(f"Didn't find {scan_date} in the current season ortho scan dates.")
+            from phytooracle_data import find_nearest_date
+            nearest_date = find_nearest_date(valid_ortho_dates, scan_date)
+            rgb_date = nearest_date.strftime("%Y-%m-%d")
+            print(f"    We will use this date instead: {rgb_date}")
+        else:
+            rgb_date = scan_date
+    elif conf.args.season == 12:
+        rev_ortho_dates = [d.split("__")[0] for d in valid_ortho_dates]
+        rev_scan_date = scan_date.split("__")[0]
+        
+        if rev_scan_date not in rev_ortho_dates:
+            print(f"Didn't find {scan_date} in the current season ortho scan dates.")
+            from phytooracle_data import find_nearest_date
+            nearest_date = find_nearest_date(valid_ortho_dates, scan_date)
+            rgb_date = nearest_date.strftime("%Y-%m-%d")
+            print(f"    We will use this date instead: {rgb_date}")
+        else:
+            rgb_date = [d for d in valid_ortho_dates if d.split("__")[0] == rev_scan_date]
+            rgb_date = rgb_date[0]
     
     orth_path = conf.ortho.get_ortho_for_date(rgb_date)
     meta_path = conf.three_dee.get_preprocessed_metadata_for_date(conf.args.scan)

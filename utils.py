@@ -1,7 +1,7 @@
 import tifffile
 import pdb
 import cv2
-import gdal
+from osgeo import gdal
 import math
 import os
 import glob

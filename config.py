@@ -50,7 +50,6 @@ class Config(object):
         self.dotenv = parsed_dotenv
 
 
-
     def handle_command_line_aruments(self):
         parser = argparse.ArgumentParser(
             description='GUI for 3d manual goecorrection.',

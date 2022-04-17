@@ -17,6 +17,8 @@ def main():
 
     if conf.args.season == 10:
         scan_date = conf.args.scan
+    if conf.args.season == 11:
+        scan_date = conf.args.scan
     elif conf.args.season == 12:
         scan_date = "-".join(conf.args.scan.split("-")[1:])
     
@@ -29,7 +31,7 @@ def main():
         print(conf.three_dee.get_dates())
         sys.exit(0);
 
-    if conf.args.season == 10:
+    if conf.args.season == 10 or conf.args.season == 11:
         if scan_date not in valid_ortho_dates:
             print(f"Didn't find {scan_date} in the current season ortho scan dates.")
             from phytooracle_data import find_nearest_date
@@ -67,7 +69,7 @@ def main():
     if T is not None:
         local_transformation_json_file = conf.three_dee.local_preprocessing_transformation_json_file_path(conf.args.scan)
         save_transformation(T,local_transformation_json_file, conf)
-        conf.three_dee.upload_transformation_json_file(conf.args.scan, local_transformation_json_file)
+        # conf.three_dee.upload_transformation_json_file(conf.args.scan, local_transformation_json_file)
     else:
         print(":: Unable to estimate transformation. Try again with more scatter points. ")
     # upload happens here

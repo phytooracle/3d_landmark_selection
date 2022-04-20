@@ -13,7 +13,7 @@ cd 3d_landmark_selection
 cp sample.env .env
 ```
 
-Edit .env so that it points to where you put the phytooracle_data repo, _and_ where you want to (or already do) store data.
+Edit .env so that it points to where you put the phytooracle*data repo, \_and* where you want to (or already do) store data.
 
 ## Conda install
 
@@ -59,14 +59,16 @@ You can pan around this ortho and select landmarks by double clicking on a pixel
 
 In this window you can pan around the point cloud in 3d and select the corresponding point to the selected landmark. Use the following instructions and shortcut keys to work with this visualizer:
 
-- To move the point cloud or traverse on it, either hold down your `mouse scroll button` while moving it, or hold down your `control key` and drag the point cloud using your `left mouse button`.
-- To zoom in and out, simply use your mouse scroll button.
-- To rotate the point cloud drag it using your `left mouse button`.
-- To increase and decrease the size of the points use `+` and `-` keys on your keyboard correspondingly.
-- To select a point, hold down the `shit key` and `left click` on the point.
-- To remove the last selected point, hold down the `shift key` and `right click` on the point cloud.
-- To increase and decrease the size of the landmark marker hold down the `shift key` and press `+` and `-` keys correspondingly.
-- To exit the 3d visualizer (either after selecting the landmark or in order to cancel) press `q`.
+| Action                                                                             |                                                                 Instruction                                                                 |
+| :--------------------------------------------------------------------------------- | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| move the point cloud or traverse on it                                             | hold down your `mouse scroll button` while moving it / hold down your `control key` and drag the point cloud using your `left mouse button` |
+| zoom in and out                                                                    |                                                            `mouse scroll button`                                                            |
+| rotate the point cloud                                                             |                                                     drag using your `left mouse button`                                                     |
+| increase and decrease the size of the points                                       |                                                              `+` and `-` keys                                                               |
+| select a point                                                                     |                                           hold down the `shit key` and `left click` on the point                                            |
+| remove the last selected point                                                     |                                       hold down the `shift key` and `right click` on the point cloud                                        |
+| increase and decrease the size of the landmark marker                              |                                            hold down the `shift key` and press `+` and `-` keys                                             |
+| exit the 3d visualizer (either after selecting the landmark or in order to cancel) |                                                                  press `q`                                                                  |
 
 Once you selected enough landmarks in RGB and their corresponding point in the point cloud, press `q` in the ortho window.
 

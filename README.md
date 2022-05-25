@@ -21,7 +21,7 @@ Edit .env so that it points to where you put the phytooracle*data repo, \_and* w
 conda create -n landmark_gui
 conda activate landmark_gui
 conda install python=3.7.11
-conda install opencv-python
+conda install -c conda-forge opencv
 ```
 
 Go to http://www.open3d.org/docs/latest/getting_started.html and find the correct link under "Development version (pip)" and use it in the following command...,

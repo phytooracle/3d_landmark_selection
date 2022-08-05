@@ -24,6 +24,7 @@ RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN apt-get update
 RUN apt-get install -y python3-pyproj
 RUN apt-get install -y libgdal-dev
+RUN apt-get install libffi-dev
 RUN add-apt-repository ppa:ubuntugis/ppa
 RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal
 RUN export C_INCLUDE_PATH=/usr/include/gdal

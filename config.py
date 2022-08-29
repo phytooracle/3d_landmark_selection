@@ -39,7 +39,7 @@ class Config(object):
         self.handle_command_line_aruments()
     
         self.ortho     = stereoTop.Ortho(season=self.args.season)
-        self.three_dee = scanner3dTop.Scanner3dTop(season=self.args.season)
+        self.three_dee = scanner3dTop.Scanner3dTop(season=self.args.season,specie=self.args.specie)
         if self.args.alignment:
             print("Using the pipeline's alignment/ output for 3D scans.")
             self.three_dee.pipeline_preprocessing_dir_to_use = 'alignment'
@@ -69,6 +69,14 @@ class Config(object):
                             metavar='season',
                             default=10,
                             type=int,
+                            required=False)
+
+        parser.add_argument('-p',
+                            '--specie',
+                            help='The specie (e.g. sorghum)',
+                            metavar='specie',
+                            default="sorghum",
+                            type=str,
                             required=False)
 
         parser.add_argument('-a',

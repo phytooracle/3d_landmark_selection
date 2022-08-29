@@ -25,7 +25,7 @@ def main():
     valid_ortho_dates = conf.ortho.get_dates()
 
     if scan_date not in conf.three_dee.get_dates():
-        print();
+        print()
         print("ERROR: Invalid date selected.  No 3d scan found for that date")
         print("Here is a list of valid dates...")
         print(conf.three_dee.get_dates())

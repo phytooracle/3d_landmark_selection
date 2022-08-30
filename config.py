@@ -38,7 +38,7 @@ class Config(object):
 
         self.handle_command_line_aruments()
     
-        self.ortho     = stereoTop.Ortho(season=self.args.season)
+        self.ortho     = stereoTop.Ortho(season=self.args.season,specie=self.args.specie)
         self.three_dee = scanner3dTop.Scanner3dTop(season=self.args.season,specie=self.args.specie)
         if self.args.alignment:
             print("Using the pipeline's alignment/ output for 3D scans.")

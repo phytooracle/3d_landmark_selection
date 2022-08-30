@@ -20,7 +20,7 @@ def main():
     if conf.args.season == 11:
         scan_date = conf.args.scan
     elif conf.args.season == 12:
-        scan_date = "-".join(conf.args.scan.split("-")[1:])
+        scan_date = conf.args.scan
     
     valid_ortho_dates = conf.ortho.get_dates()
 
@@ -45,9 +45,9 @@ def main():
         rev_scan_date = scan_date.split("__")[0]
         
         if rev_scan_date not in rev_ortho_dates:
-            print(f"Didn't find {scan_date} in the current season ortho scan dates.")
+            print(f"Didn't find {rev_scan_date} in the current season ortho scan dates.")
             from phytooracle_data import find_nearest_date
-            nearest_date = find_nearest_date(valid_ortho_dates, scan_date)
+            nearest_date = find_nearest_date(valid_ortho_dates, rev_scan_date)
             rgb_date = nearest_date.strftime("%Y-%m-%d")
             print(f"    We will use this date instead: {rgb_date}")
         else:

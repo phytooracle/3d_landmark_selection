@@ -48,7 +48,6 @@ def main():
             print(f"Didn't find {rev_scan_date} in the current season ortho scan dates.")
             from phytooracle_data import find_nearest_date
             nearest_date = find_nearest_date(valid_ortho_dates, rev_scan_date)
-            print(nearest_date)
             rgb_date = nearest_date.strftime("%Y-%m-%d")
             print(f"    We will use this date instead: {rgb_date}")
         else:

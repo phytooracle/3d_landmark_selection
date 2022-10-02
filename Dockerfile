@@ -24,7 +24,7 @@ RUN apt-get install -y wget \
                        unzip \
                        libncurses5 \
                        libncurses5-dev \
-                       libncursesw5
+                       libncursesw5 \
                        apt-transport-https \
                        gcc \
                        gnupg

@@ -58,18 +58,10 @@ COPY . /opt
 RUN wget https://files.renci.org/pub/irods/releases/4.1.10/ubuntu14/irods-icommands-4.1.10-ubuntu14-x86_64.deb \
     && apt-get install -y ./irods-icommands-4.1.10-ubuntu14-x86_64.deb
 
-RUN [ -s /home/extractor/packages.txt ] && \
-    (echo 'Installing packages' && \
-        apt-get update && \
-        cat /home/extractor/packages.txt | xargs apt-get install -y --no-install-recommends && \
-        mkdir -p /root/.irods && \
-        echo "{ \"irods_zone_name\": \"iplant\", \"irods_host\": \"data.cyverse.org\", \"irods_port\": 1247, \"irods_user_name\": \"$IRODS_USER\" }" > /root/.irods/irods_environment.json && \
-        rm /home/extractor/packages.txt && \
-        apt-get autoremove -y && \
-        apt-get clean && \
-        rm -rf /var/lib/apt/lists/*) || \
-    (echo 'No packages to install' && \
-        rm /home/extractor/packages.txt)
-
+RUN apt-get update
+RUN mkdir -p /root/.irods
+RUN echo "{ \"irods_zone_name\": \"iplant\", \"irods_host\": \"data.cyverse.org\", \"irods_port\": 1247, \"irods_user_name\": \"$IRODS_USER\" }" > /root/.irods/irods_environment.json
+RUN apt-get autoremove -y
+RUN apt-get clean
 
 ENTRYPOINT [ "/usr/local/bin/python3.7", "/opt/main.py" ]

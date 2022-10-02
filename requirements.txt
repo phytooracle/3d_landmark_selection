@@ -28,3 +28,4 @@ torchvision==0.7.0
 torch==1.6.0 
 cython==0.29.32 
 python-dotenv==0.20.0
+inquirer==2.10.0

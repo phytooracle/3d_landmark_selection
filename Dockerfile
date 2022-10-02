@@ -18,7 +18,9 @@ RUN apt-get install -y wget \
                        libsm6 \
                        libxext6 \
                        libxrender-dev \
-                       libgl1-mesa-dev
+                       libgl1-mesa-dev \
+                       zip \
+                       unzip
 
 RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN apt-get update
@@ -40,7 +42,8 @@ RUN pip3 install -r /opt/requirements.txt
 RUN apt-get install -y locales && locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
-RUN git clone https://github.com/phytooracle/phytooracle_data.git
+RUN wget https://github.com/phytooracle/phytooracle_data/archive/refs/heads/main.zip
+RUN unzip phytooracle_data-main.zip
 COPY . /opt
 
 ENTRYPOINT [ "/usr/local/bin/python3.7", "/opt/main.py" ]

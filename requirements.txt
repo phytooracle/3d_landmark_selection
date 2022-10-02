@@ -22,10 +22,10 @@ sklearn==0.0
 tifffile==2020.10.1
 tqdm==4.64.0
 detecto==1.1.6 
-open3d==0.15.2 
+open3d==0.13.0 
 utm==0.5.0 
 torchvision==0.7.0 
 torch==1.6.0 
 cython==0.29.32 
 python-dotenv==0.20.0
-inquirer
+inquirer==2.10.0

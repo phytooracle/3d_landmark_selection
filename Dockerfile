@@ -6,6 +6,7 @@ COPY . /opt
 USER root
 
 ARG DEBIAN_FRONTEND=noninteractive
+ENV IRODS_USER=anonymous
 
 RUN apt-get -o Acquire::Check-Valid-Until=false -o Acquire::Check-Date=false update -y
 RUN apt-get install -y wget \
@@ -50,5 +51,22 @@ RUN wget https://github.com/phytooracle/phytooracle_data/archive/refs/heads/main
 RUN unzip main.zip
 RUN mv phytooracle_data-main/ phytooracle_data/
 COPY . /opt
+
+RUN wget https://files.renci.org/pub/irods/releases/4.1.10/ubuntu14/irods-icommands-4.1.10-ubuntu14-x86_64.deb \
+    && apt-get install -y ./irods-icommands-4.1.10-ubuntu14-x86_64.deb
+
+RUN [ -s /home/extractor/packages.txt ] && \
+    (echo 'Installing packages' && \
+        apt-get update && \
+        cat /home/extractor/packages.txt | xargs apt-get install -y --no-install-recommends && \
+        mkdir -p /root/.irods && \
+        echo "{ \"irods_zone_name\": \"iplant\", \"irods_host\": \"data.cyverse.org\", \"irods_port\": 1247, \"irods_user_name\": \"$IRODS_USER\" }" > /root/.irods/irods_environment.json && \
+        rm /home/extractor/packages.txt && \
+        apt-get autoremove -y && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*) || \
+    (echo 'No packages to install' && \
+        rm /home/extractor/packages.txt)
+
 
 ENTRYPOINT [ "/usr/local/bin/python3.7", "/opt/main.py" ]

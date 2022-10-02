@@ -25,6 +25,9 @@ RUN apt-get install -y wget \
                        libncurses5 \
                        libncurses5-dev \
                        libncursesw5
+                       apt-transport-https \
+                       gcc \
+                       gnupg
 
 RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN apt-get update

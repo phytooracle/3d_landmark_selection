@@ -43,7 +43,7 @@ RUN apt-get install -y locales && locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 RUN wget https://github.com/phytooracle/phytooracle_data/archive/refs/heads/main.zip
-RUN unzip phytooracle_data-main.zip
+RUN unzip phytooracle_data-main.zip -d phytooracle_data
 COPY . /opt
 
 ENTRYPOINT [ "/usr/local/bin/python3.7", "/opt/main.py" ]

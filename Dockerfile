@@ -44,7 +44,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 #RUN wget https://github.com/phytooracle/phytooracle_data/archive/refs/heads/main.zip
 RUN wget https://github.com/phytooracle/phytooracle_data/archive/refs/heads/main.zip
-RUN unzip main.zip -d phytooracle_data
+RUN unzip main.zip
+RUN mv phytooracle_data-main/ phytooracle_data/
 COPY . /opt
 
 ENTRYPOINT [ "/usr/local/bin/python3.7", "/opt/main.py" ]

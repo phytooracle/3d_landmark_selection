@@ -20,7 +20,10 @@ RUN apt-get install -y wget \
                        libxrender-dev \
                        libgl1-mesa-dev \
                        zip \
-                       unzip
+                       unzip \
+                       libncurses5 \
+                       libncurses5-dev \
+                       libncursesw5
 
 RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN apt-get update

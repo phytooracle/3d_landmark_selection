@@ -1,7 +1,8 @@
 FROM ubuntu:18.04
 
 WORKDIR /opt
-COPY . /opt
+RUN mkdir /opt/3d_landmark_selection
+COPY . /opt/3d_landmark_selection/
 
 USER root
 

@@ -41,7 +41,7 @@ cp sample.env .env
 
 Edit .env so that it points to where you put the phytooracle*data repo, \_and* where you want to (or already do) store data.
 
-## Conda install
+### Conda install
 
 ```
 conda create -n landmark_gui

@@ -20,7 +20,7 @@ def main():
         scan_date = conf.args.scan
     if conf.args.season == 11:
         scan_date = conf.args.scan
-    elif conf.args.season == 12:
+    elif (conf.args.season == 12) or (conf.args.season == 14):
         scan_date = conf.args.scan
     
     valid_ortho_dates = conf.ortho.get_dates()
@@ -41,7 +41,7 @@ def main():
             print(f"    We will use this date instead: {rgb_date}")
         else:
             rgb_date = scan_date
-    elif conf.args.season == 12:
+    elif (conf.args.season == 12) or (conf.args.season == 14):
         rev_ortho_dates = [d.split("__")[0] for d in valid_ortho_dates]
         rev_scan_date = scan_date.split("__")[0]
         

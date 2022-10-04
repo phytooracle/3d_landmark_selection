@@ -5,11 +5,14 @@ from cv2 import boundingRect
 from utils import *
 from config import Config
 import inquirer
+import termios
+
+
 
 def main():
 
     conf = Config() # This contains command line arguments, and phytooracle_data classes.
-
+    termios.tcgetattr(sys.stdin.fileno())
     #orth_path = '/home/ariyan/Desktop/LandmarkSelection/2020-03-01_ortho_10pct_cubic.tif'
     #down_sampled_merged_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_merged_downsampled_preprocessed/merged_downsampled"
     #meta_path = "/home/ariyan/Desktop/LandmarkSelection/2020-02-29_metadata/metadata"

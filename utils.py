@@ -3,7 +3,7 @@ import pdb
 import cv2
 from osgeo import gdal
 import math
-import os
+import os, sys, stat
 import glob
 import json
 import numpy as np
@@ -300,9 +300,23 @@ def estimate_transformation(list_matched_points):
     return T
 
 def save_transformation(T,path,conf):
-    with open(path,"w") as f:
+    print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+    print(f'Transformation list:')
+    print(T.tolist())
+
+    print('Scan date:')
+    print(conf.args.scan)
+
+    print('Registration method:')
+    print(conf.three_dee.pipeline_preprocessing_dir_to_use)
+    print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+
+    with open(path,"w+") as f:
         json.dump({
                    "transformation":T.tolist(),
                    "scan_date":conf.args.scan,
                    "registration_method":conf.three_dee.pipeline_preprocessing_dir_to_use
                   },f)
+
+    # os.chmod(path, 0o777)
+    os.chmod(path, stat.S_IRWXO)

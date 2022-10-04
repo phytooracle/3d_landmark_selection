@@ -81,6 +81,7 @@ def main():
    
     if T is not None:
         local_transformation_json_file = conf.three_dee.local_preprocessing_transformation_json_file_path(conf.args.scan)
+        print(f'LS FILE: {local_transformation_json_file}')
         save_transformation(T,local_transformation_json_file, conf)
         conf.three_dee.upload_transformation_json_file(conf.args.scan, local_transformation_json_file)
     else:

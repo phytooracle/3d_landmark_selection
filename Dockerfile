@@ -29,7 +29,8 @@ RUN apt-get install -y wget \
                        libncursesw5 \
                        apt-transport-https \
                        gcc \
-                       gnupg 
+                       gnupg \
+                       libnvidia-gl-440
 
 RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN apt-get update
@@ -94,6 +95,5 @@ RUN mkdir -p /root/.irods
 RUN echo "{ \"irods_zone_name\": \"iplant\", \"irods_host\": \"data.cyverse.org\", \"irods_port\": 1247, \"irods_user_name\": \"$IRODS_USER\" }" > /root/.irods/irods_environment.json
 RUN apt-get autoremove -y
 RUN apt-get clean
-RUN apt install libnvidia-gl-440
 
 ENTRYPOINT [ "/usr/local/bin/python3.7", "/opt/main.py" ]

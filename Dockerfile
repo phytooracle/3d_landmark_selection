@@ -30,7 +30,10 @@ RUN apt-get install -y wget \
                        apt-transport-https \
                        gcc \
                        gnupg \
+                       mesa-utils \
+                       libgl1-mesa-glx \
                        libnvidia-gl-440
+                       
 
 RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN apt-get update

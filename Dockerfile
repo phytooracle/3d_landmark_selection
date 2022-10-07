@@ -32,6 +32,10 @@ RUN apt-get install -y wget \
                        gnupg \
                        mesa-utils \
                        libgl1-mesa-glx \
+                       bzip2 \
+                       libglu1-mesa-dev \
+                       qt5-default \
+                       libgl1-mesa-glx \
                        libnvidia-gl-440
                        
 

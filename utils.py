@@ -319,4 +319,4 @@ def save_transformation(T,path,conf):
                   },f)
 
     # os.chmod(path, 0o777)
-    os.chmod(path, stat.S_IRWXO)
+#     os.chmod(path, stat.S_IRWXO)

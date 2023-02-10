@@ -4,7 +4,7 @@
 To installed Singularity run:
 
 ```bash
-https://github.com/apptainer/singularity/releases/download/v3.8.7/singularity-container_3.8.7_amd64.deb && sudo apt install ./singularity-container_3.8.7_amd64.deb
+wget https://github.com/apptainer/singularity/releases/download/v3.8.7/singularity-container_3.8.7_amd64.deb && sudo apt install ./singularity-container_3.8.7_amd64.deb
 ```
 
 To confirm that singularity was installed run:

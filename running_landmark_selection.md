@@ -43,10 +43,14 @@ You should now see the container downloading data, and you will be prompted to s
 
 Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/latest/download) and set the following configuration:
 
+## Start XLaunch
+
 ![Alt text](figs/config1.png?raw=true "Title") <br/>
 ![Alt text](figs/config2.png?raw=true "Title") <br/>
 ![Alt text](figs/config3.png?raw=true "Title") <br/>
 ![Alt text](figs/config4.png?raw=true "Title") <br/>
+
+> **_NOTE:_** You will have to start XLaunch every time that you shutdown your computer and try to run landmark selection again. It does not autolaunch at startup.
 
 ## Run the container
 To run the landmark selection container, run:

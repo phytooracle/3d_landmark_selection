@@ -52,5 +52,5 @@ Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/
 To run the landmark selection container, run:
 
 ```bash
-docker run -ti --rm -e DISPLAY=$DISPLAY -B $(pwd):/mnt --pwd /mnt landmark_selection.simg -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
+docker run -ti --rm -e DISPLAY=$DISPLAY phytooracle/3d_landmark_selection -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
 ```

@@ -42,10 +42,10 @@ You should now see the container downloading data, and you will be prompted to s
 ## Install 
 
 Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/latest/download) and set the following configuration:
-![Alt text](figs/config1.png?raw=true "Title")
-![Alt text](figs/config2.png?raw=true "Title")
-![Alt text](figs/config3.png?raw=true "Title")
-![Alt text](figs/config4.png?raw=true "Title")
+![Alt text](figs/config1.png?raw=true "Title")\
+![Alt text](figs/config2.png?raw=true "Title")\
+![Alt text](figs/config3.png?raw=true "Title")\
+![Alt text](figs/config4.png?raw=true "Title")\
 
 ## Run the container
 To run the landmark selection container, run:

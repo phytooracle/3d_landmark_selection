@@ -32,7 +32,24 @@ xhost +local:root
 Then, run the container:
 
 ```bash
-singularity run landmark_selection.simg -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
+singularity run -B $(pwd):/mnt --pwd /mnt landmark_selection.simg -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
 ```
 
 You should now see the container downloading data, and you will be prompted to select an RGB orthomosaic (select the closest date to the 3D scan data that you are landmark selecting).
+
+# Docker Desktop on workstation
+
+## Install 
+
+Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/latest/download) and set the following configuration:
+![Alt text](figs/config1.png?raw=true "Title")
+![Alt text](figs/config2.png?raw=true "Title")
+![Alt text](figs/config3.png?raw=true "Title")
+![Alt text](figs/config4.png?raw=true "Title")
+
+## Run the container
+To run the landmark selection container, run:
+
+```bash
+docker run -ti --rm -e DISPLAY=$DISPLAY -B $(pwd):/mnt --pwd /mnt landmark_selection.simg -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
+```

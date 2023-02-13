@@ -85,7 +85,9 @@ docker run -ti --rm --env DISPLAY=150.135.43.208:0.0 --env LIBGL_ALWAYS_INDIRECT
 Install [XQuartz](https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg).
 
 ### Start XQuartz
-Search for and open the XQuartz application.
+Search for and open the XQuartz application. At the top left of your screen, click on XQuartz > Preferences > Security and set the following configuration:
+
+![Alt text](figs/mac1.png?raw=true "Title") <br/>
 
 ### Find IP address
 

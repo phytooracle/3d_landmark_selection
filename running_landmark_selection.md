@@ -50,11 +50,25 @@ Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/
 ![Alt text](figs/config3.png?raw=true "Title") <br/>
 ![Alt text](figs/config4.png?raw=true "Title") <br/>
 
-> **_NOTE:_** You will have to start XLaunch every time that you shutdown your computer and try to run landmark selection again. It does not autolaunch at startup.
+> **_NOTE:_** You will have to start XLaunch every time that you shutdown your computer and try to run landmark selection again. It does not autolaunch at startup. If you do not have XLaunch running, the container will not launch.
+
+## Set IP address
+
+Open Powershell and find your IP address by running:
+
+```powershell
+ipconfig
+```
+
+> **_NOTE:_** The IP address will be the one labeled IPv4 Address.
+
+Let's assume that our IPv4 IP address is ```150.135.43.208```, we would then use the DISPLAY value of ```150.135.43.208:0.0``` below.
 
 ## Run the container
-To run the landmark selection container, run:
+To run the landmark selection container, run the following command in Powershell:
 
-```bash
-docker run -ti --rm -e DISPLAY=$DISPLAY phytooracle/3d_landmark_selection -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
+```powershell
+docker run -ti --rm --env DISPLAY=150.135.43.208:0.0 phytooracle/3d_landmark_selection -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
 ```
+
+> **_NOTE:_** If the container does not launch, check that: (i) confirm that XLaunch is running, (ii) run ```xhost +local:root``` and try again, or launch Power shell as

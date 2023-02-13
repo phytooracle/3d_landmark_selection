@@ -73,4 +73,4 @@ To run the landmark selection container, run the following command in Powershell
 docker run -ti --rm --env DISPLAY=150.135.43.208:0.0 phytooracle/3d_landmark_selection -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
 ```
 
-> **_NOTE:_** If the container does not launch, check that: (i) confirm that XLaunch is running, (ii) run ```xhost +local:root``` and try again, or (iii) close Powershell and restart using Adminstrator Mode.
+> **_NOTE:_** If the container does not launch, check that: (i) confirm that XLaunch is running, (ii) run ```xhost +local:root``` and try again, (iii) confirm that you set the correct IP address within the DISPLAY variable in your Docker command, or (iv) close Powershell and restart using Adminstrator Mode.

@@ -29,7 +29,7 @@ For help running the container, [click here](https://github.com/phytooracle/3d_l
 - Execute `xhost +local:root`
 - Execute with `docker run -it --rm --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" phytooracle/3d_landmark_selection -s <scan date> -S <season number> -a`
 - Execute `xhost -local:root` once finished -->
-
+<!-- 
 ## Local installation instructions - not recommended
 
 Please follow these steps to clone the necessary repo and configure the environment properly.
@@ -65,7 +65,7 @@ conda install gdal
 conda install pyproj
 pip install python-dotenv
 pip install imagecodecs
-```
+``` -->
 
 ## Using the GUI
 

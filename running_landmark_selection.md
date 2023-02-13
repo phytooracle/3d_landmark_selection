@@ -101,5 +101,5 @@ Find the row labeld ```inet``` and copy the IP address. Let's assume that our ad
 To run the landmark selection container, run the following command in Powershell:
 
 ```mac
-docker run -ti --rm --env DISPLAY=10.161.215.174:0 --env LIBGL_ALWAYS_INDIRECT=0 phytooracle/3d_landmark_selection -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
+docker run -ti --rm --env DISPLAY=10.161.215.174:0 --env LIBGL_ALWAYS_INDIRECT=0 --privileged phytooracle/3d_landmark_selection -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
 ```

@@ -52,7 +52,7 @@ Open XLaunch on Windows or XQuartz on MacOS and set the following configuration:
 
 ![Alt text](figs/config1.png?raw=true "Title") <br/>
 ![Alt text](figs/config2.png?raw=true "Title") <br/>
-![Alt text](figs/config3.png?raw=true "Title") <br/>
+![Alt text](figs/config3_up.png?raw=true "Title") <br/>
 ![Alt text](figs/config4.png?raw=true "Title") <br/>
 
 > **_NOTE:_** You will have to start XLaunch every time that you shutdown your computer and try to run landmark selection again. It does not autolaunch at startup. If you do not have XLaunch running, the container will not launch.

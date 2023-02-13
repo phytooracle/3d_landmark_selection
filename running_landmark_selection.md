@@ -37,6 +37,20 @@ singularity run -B $(pwd):/mnt --pwd /mnt landmark_selection.simg -s 2022-02-11_
 
 You should now see the container downloading data, and you will be prompted to select an RGB orthomosaic (select the closest date to the 3D scan data that you are landmark selecting).
 
+## Troubleshooting
+
+If you get an ```xhost:  unable to open display ""``` error after running the xhost command, do the following:
+
+* Install one of the WSL2-compatible GPU drivers for your computer:
+    * [Intel](https://www.intel.com/content/www/us/en/download/19344/intel-graphics-windows-dch-drivers.html)
+    * [AMD](https://www.amd.com/en/support/kb/release-notes/rn-rad-win-wsl-support)
+    * [NVIDIA](https://developer.nvidia.com/cuda/wsl)
+
+> **_NOTE:_** For more information on WSLg requirements refer to the [WSLg documentation](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps).
+
+* Once done, open Powershell or Command prompt and run ```wsl --shutdown```
+* Try the steps above again
+
 # Option 2 | Docker Desktop on Windows or MacOS
 
 ## Windows

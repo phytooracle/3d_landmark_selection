@@ -1,4 +1,4 @@
-# Singularity
+# Option 1 | Singularity
 
 ## Installing Singularity
 To installed Singularity run:
@@ -37,7 +37,7 @@ singularity run -B $(pwd):/mnt --pwd /mnt landmark_selection.simg -s 2022-02-11_
 
 You should now see the container downloading data, and you will be prompted to select an RGB orthomosaic (select the closest date to the 3D scan data that you are landmark selecting).
 
-# Docker Desktop on Windows or MacOS
+# Option 2 | Docker Desktop on Windows or MacOS
 
 ## Install 
 

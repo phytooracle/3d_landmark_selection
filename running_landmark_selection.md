@@ -39,15 +39,13 @@ You should now see the container downloading data, and you will be prompted to s
 
 # Option 2 | Docker Desktop on Windows or MacOS
 
-## Install X server
+## Windows
 
-### Windows
+### Install X server
+
 Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/latest/download).
 
-### MacOS
-Install [XQuartz](https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg).
-
-## Start XLaunch
+### Start XLaunch - Windows
 Open XLaunch on Windows or XQuartz on MacOS and set the following configuration:
 
 ![Alt text](figs/config1.png?raw=true "Title") <br/>
@@ -57,7 +55,7 @@ Open XLaunch on Windows or XQuartz on MacOS and set the following configuration:
 
 > **_NOTE:_** You will have to start XLaunch every time that you shutdown your computer and try to run landmark selection again. It does not autolaunch at startup. If you do not have XLaunch running, the container will not launch.
 
-## Set IP address
+### Find IP address
 
 Open Powershell on Windows or Terminal on MacOS and find your IP address by running:
 
@@ -71,7 +69,7 @@ ipconfig
 
 Let's assume that our IPv4 IP address is ```150.135.43.208```, we would then use the DISPLAY value of ```150.135.43.208:0.0``` below.
 
-## Run the container
+### Run the container
 To run the landmark selection container, run the following command in Powershell:
 
 ```powershell
@@ -79,3 +77,29 @@ docker run -ti --rm --env DISPLAY=150.135.43.208:0.0 --env LIBGL_ALWAYS_INDIRECT
 ```
 
 > **_NOTE:_** If the container does not launch, check that: (i) confirm that XLaunch is running, (ii) run ```xhost +local:root``` and try again, (iii) confirm that you set the correct IP address within the DISPLAY variable in your Docker command, or (iv) close Powershell and restart using Adminstrator Mode.
+
+## MacOS
+
+### Install X server
+
+Install [XQuartz](https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg).
+
+### Start XQuartz
+Search for and open the XQuartz application.
+
+### Find IP address
+
+Open a terminal and run:
+
+```mac
+ifconfig en1
+```
+
+Find the row labeld ```inet``` and copy the IP address. Let's assume that our address is ```10.161.215.174```.
+
+### Run the container
+To run the landmark selection container, run the following command in Powershell:
+
+```mac
+docker run -ti --rm --env DISPLAY=10.161.215.174:0 --env LIBGL_ALWAYS_INDIRECT=0 phytooracle/3d_landmark_selection -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
+```

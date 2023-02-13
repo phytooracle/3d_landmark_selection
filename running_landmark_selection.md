@@ -39,11 +39,16 @@ You should now see the container downloading data, and you will be prompted to s
 
 # Option 2 | Docker Desktop on Windows or MacOS
 
-## Install 
+## Install X server
 
-Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/latest/download) and set the following configuration:
+### Windows
+Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/latest/download).
+
+### MacOS
+Install [XQuartz](https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg).
 
 ## Start XLaunch
+Open XLaunch on Windows or XQuartz on MacOS and set the following configuration:
 
 ![Alt text](figs/config1.png?raw=true "Title") <br/>
 ![Alt text](figs/config2.png?raw=true "Title") <br/>
@@ -54,7 +59,7 @@ Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/
 
 ## Set IP address
 
-Open Powershell or Command Prompt in <b>Administrator Mode</b> and find your IP address by running:
+Open Powershell on Windows or Terminal on MacOS and find your IP address by running:
 
 ```powershell
 ipconfig

@@ -54,13 +54,15 @@ Install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/files/
 
 ## Set IP address
 
-Open Powershell in Administrator Mode and find your IP address by running:
+Open Powershell or Command Prompt in <b>Administrator Mode</b> and find your IP address by running:
 
 ```powershell
 ipconfig
 ```
 
 > **_NOTE:_** The IP address will be the one labeled IPv4 Address.
+
+![Alt text](figs/ip.png?raw=true "Title") <br/>
 
 Let's assume that our IPv4 IP address is ```150.135.43.208```, we would then use the DISPLAY value of ```150.135.43.208:0.0``` below.
 

@@ -39,9 +39,15 @@ You should now see the container downloading data, and you will be prompted to s
 
 ## Troubleshooting
 
-If you get an ```xhost:  unable to open display ""``` error after running the xhost command, do the following:
+### Trob
+Running GUI apps on Windows 10 WSL2 can result in errors. If you get an ```xhost:  unable to open display ""``` error after running the xhost command on Windows 10 WSL2, do the following:
 
-* Install one of the WSL2-compatible GPU drivers for your computer:
+1. Follow the steps [here](https://aalonso.dev/blog/how-to-use-gui-apps-in-wsl2-forwarding-x-server-cdj).
+2. Add the line ```export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"``` to your ```~/.bashrc``` file.
+3. Open Powershell or Command Prompt and run ```wsl --shutdown```.
+4. Open your WSL2 terminal and run the singularity command as: ```singularity run --env LIBGL_ALWAYS_INDIRECT=0 -B $(pwd):/mnt --pwd /mnt landmark_selection.simg -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a```.
+
+<!-- * Install one of the WSL2-compatible GPU drivers for your computer:
     * [Intel](https://www.intel.com/content/www/us/en/download/19344/intel-graphics-windows-dch-drivers.html)
     * [AMD](https://www.amd.com/en/support/kb/release-notes/rn-rad-win-wsl-support)
     * [NVIDIA](https://developer.nvidia.com/cuda/wsl)
@@ -49,7 +55,7 @@ If you get an ```xhost:  unable to open display ""``` error after running the xh
 > **_NOTE:_** For more information on WSLg requirements refer to the [WSLg documentation](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps).
 
 * Once done, open Powershell or Command prompt and run ```wsl --shutdown```
-* Try the steps above again
+* Try the steps above again -->
 
 # Option 2 | Docker Desktop on Windows or MacOS
 

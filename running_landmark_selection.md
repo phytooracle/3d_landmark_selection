@@ -39,8 +39,8 @@ You should now see the container downloading data, and you will be prompted to s
 
 ## Troubleshooting
 
-### Trob
-Running GUI apps on Windows 10 WSL2 can result in errors. If you get an ```xhost:  unable to open display ""``` error after running the xhost command on Windows 10 WSL2 or cannot get the landmark selection GUI running, do the following:
+### WSL2 on Windows 10
+Running GUI apps with WSL2 on Windows 10 can result in errors. If you get an ```xhost:  unable to open display ""``` error after running the xhost command on Windows 10 WSL2 or cannot get the landmark selection GUI running, do the following:
 
 1. Follow the steps [here](https://aalonso.dev/blog/how-to-use-gui-apps-in-wsl2-forwarding-x-server-cdj).
 2. Add the line ```export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"``` to your ```~/.bashrc``` file.

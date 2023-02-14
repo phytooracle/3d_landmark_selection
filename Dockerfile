@@ -81,19 +81,25 @@ RUN wget -qO - https://packages.irods.org/irods-signing-key.asc | apt-key add -
 RUN echo "deb [arch=amd64] https://packages.irods.org/apt/ ${LSB_RELEASE}  main" \
      tee /etc/apt/sources.list.d/renci-irods.list
 
-RUN apt-get update
-RUN wget -c \
-  http://security.ubuntu.com/ubuntu/pool/main/p/python-urllib3/${PY_UR} \
-  http://security.ubuntu.com/ubuntu/pool/main/o/openssl/${LI_SS} \
-  http://security.ubuntu.com/ubuntu/pool/main/r/requests/${PY_RE}
-RUN apt install -y --allow-downgrades \
-  ./${PY_UR} \
-  ./${LI_SS} \
-  ./${PY_RE}
+# RUN apt-get update
+# RUN wget -c \
+#   http://security.ubuntu.com/ubuntu/pool/main/p/python-urllib3/${PY_UR} \
+#   http://security.ubuntu.com/ubuntu/pool/main/o/openssl/${LI_SS} \
+#   http://security.ubuntu.com/ubuntu/pool/main/r/requests/${PY_RE}
+# RUN apt install -y --allow-downgrades \
+#   ./${PY_UR} \
+#   ./${LI_SS} \
+#   ./${PY_RE}
+# RUN rm -rf \
+#   ./${PY_UR} \
+#   ./${LI_SS} \
+#   ./${PY_RE}
+RUN sudo wget -c \
+    http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+RUN sudo apt install \
+    ./libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
 RUN rm -rf \
-  ./${PY_UR} \
-  ./${LI_SS} \
-  ./${PY_RE}
+    ./libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
 
 RUN wget https://files.renci.org/pub/irods/releases/4.1.10/ubuntu14/irods-icommands-4.1.10-ubuntu14-x86_64.deb \
     && apt-get install -y ./irods-icommands-4.1.10-ubuntu14-x86_64.deb

@@ -79,7 +79,7 @@ RUN echo "deb [arch=amd64] https://packages.irods.org/apt/ ${LSB_RELEASE}  main"
      tee /etc/apt/sources.list.d/renci-irods.list
 
 RUN wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
-    && apt install ./libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
+    && apt install -y ./libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
     && rm -rf ./libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb
 
 RUN apt install -y irods-icommands

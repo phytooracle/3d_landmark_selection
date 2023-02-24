@@ -76,8 +76,8 @@ ARG LSB_RELEASE="bionic"
 
 RUN wget -qO - https://packages.irods.org/irods-signing-key.asc | apt-key add -
 RUN echo "deb [arch=amd64] https://packages.irods.org/apt/ ${LSB_RELEASE}  main" | tee /etc/apt/sources.list.d/renci-irods.list
-RUN sudo apt-get update \
-    && sudo apt-get upgrade -y
+RUN apt-get update \
+    && apt-get upgrade -y
 
 RUN wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
     && apt install -y ./libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
@@ -85,7 +85,7 @@ RUN wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.
 
 RUN wget https://files.renci.org/pub/irods/releases/4.1.10/ubuntu14/irods-icommands-4.1.10-ubuntu14-x86_64.deb \
     && apt-get install -y ./irods-icommands-4.1.10-ubuntu14-x86_64.deb
-    
+
 RUN mkdir -p /root/.irods
 RUN echo "{ \"irods_zone_name\": \"iplant\", \"irods_host\": \"data.cyverse.org\", \"irods_port\": 1247, \"irods_user_name\": \"$IRODS_USER\" }" > /root/.irods/irods_environment.json
 RUN apt-get autoremove -y

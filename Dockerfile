@@ -95,11 +95,11 @@ RUN echo "deb [arch=amd64] https://packages.irods.org/apt/ ${LSB_RELEASE}  main"
 #   ./${LI_SS} \
 #   ./${PY_RE}
 RUN sudo wget -c \
-    http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+    http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.18_amd64.deb
 RUN sudo apt install \
-    ./libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+    ./libssl1.1_1.1.1f-1ubuntu2.18_amd64.deb
 RUN rm -rf \
-    ./libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+    ./libssl1.1_1.1.1f-1ubuntu2.18_amd64.deb
 
 RUN wget https://files.renci.org/pub/irods/releases/4.1.10/ubuntu14/irods-icommands-4.1.10-ubuntu14-x86_64.deb \
     && apt-get install -y ./irods-icommands-4.1.10-ubuntu14-x86_64.deb

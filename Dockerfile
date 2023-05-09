@@ -101,7 +101,7 @@ RUN echo "deb [arch=amd64] https://packages.irods.org/apt/ ${LSB_RELEASE}  main"
 #   ./${PY_RE}
 RUN wget -c \
     http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.18_amd64.deb
-RUN apt install \
+RUN apt-get install -y \
     ./libssl1.1_1.1.1f-1ubuntu2.18_amd64.deb
 RUN rm -rf \
     ./libssl1.1_1.1.1f-1ubuntu2.18_amd64.deb

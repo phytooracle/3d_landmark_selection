@@ -35,7 +35,11 @@ Then, run the container:
 singularity run -B $(pwd):/mnt --pwd /mnt landmark_selection.simg -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
 ```
 
-You should now see the container downloading data, and you will be prompted to select an RGB orthomosaic (select the closest date to the 3D scan data that you are landmark selecting).
+You should now see the container downloading data, and you will be prompted to select an RGB orthomosaic (select the closest date to the 3D scan data that you are landmark selecting). Using the above command, all input data will be stored at `/tmp`. If you prefer not to save any input data locally, run the following command instead:
+
+```bash
+singularity run landmark_selection.simg -s 2022-02-11__19-59-49-338_lettuce -S 13 -p lettuce -a
+```
 
 ## Troubleshooting
 

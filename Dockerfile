@@ -83,8 +83,7 @@ ARG PY_RE='python3-requests_2.25.1+dfsg-2_all.deb'
 ARG LSB_RELEASE="bionic" 
 
 RUN wget -qO - https://packages.irods.org/irods-signing-key.asc | apt-key add -
-RUN echo "deb [arch=amd64] https://packages.irods.org/apt/ ${LSB_RELEASE}  main" \
-     tee /etc/apt/sources.list.d/renci-irods.list
+RUN echo "deb [arch=amd64] https://packages.irods.org/apt/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/renci-irods.list
 
 # RUN apt-get update
 # RUN wget -c \
@@ -100,15 +99,15 @@ RUN echo "deb [arch=amd64] https://packages.irods.org/apt/ ${LSB_RELEASE}  main"
 #   ./${LI_SS} \
 #   ./${PY_RE}
 RUN wget -c \
-    http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.18_amd64.deb
+    http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
 RUN apt-get install -y \
-    ./libssl1.1_1.1.1f-1ubuntu2.18_amd64.deb
+    ./libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
 RUN rm -rf \
-    ./libssl1.1_1.1.1f-1ubuntu2.18_amd64.deb
+    ./libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
 
-RUN wget https://files.renci.org/pub/irods/releases/4.1.10/ubuntu14/irods-icommands-4.1.10-ubuntu14-x86_64.deb \
-    && apt-get install -y ./irods-icommands-4.1.10-ubuntu14-x86_64.deb
-# RUN apt install -y irods-icommands
+# RUN wget https://files.renci.org/pub/irods/releases/4.1.10/ubuntu14/irods-icommands-4.1.10-ubuntu14-x86_64.deb \
+#     && apt-get install -y ./irods-icommands-4.1.10-ubuntu14-x86_64.deb
+RUN apt install -y irods-icommands
 RUN mkdir -p /root/.irods
 RUN echo "{ \"irods_zone_name\": \"iplant\", \"irods_host\": \"data.cyverse.org\", \"irods_port\": 1247, \"irods_user_name\": \"$IRODS_USER\" }" > /root/.irods/irods_environment.json
 RUN apt-get autoremove -y

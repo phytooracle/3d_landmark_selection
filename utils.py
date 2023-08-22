@@ -2,6 +2,7 @@ import tifffile
 import pdb
 import cv2
 from osgeo import gdal
+from osgeo import osr
 import math
 import os, sys, stat
 import glob
@@ -131,8 +132,8 @@ def draw_3d_boundaries_on_ortho(ortho,boundaries,meta_dict):
 
     for folder in meta_dict:
         gps = meta_dict[folder]['gps_boundaries']
-        up = min(UL[1],max(up, gps['NW'][1]+0.5))
-        down = max(LL[1],min(down, gps['SE'][1]-0.5))
+        up = min(UL[1],max(up, gps['NW'][1]+1.5))
+        down = max(LL[1],min(down, gps['SE'][1]-1.5))
         right = min(right, gps['NE'][0])
         left = max(left, gps['NW'][0])
 
@@ -204,6 +205,28 @@ def transform_point_to_GPS(point):
     transformed_point = np.matmul(T,point)
     return transformed_point
 
+#-------------------------------------------------------------------------------
+def scanalyzer_to_utm(gantry_x, gantry_y):
+    '''
+    Convert coordinates from gantry to UTM 12N
+    
+    Input:
+        - gantry_x: Raw gantry x position
+        - gantry_y: Raw gantry y position
+    Output: 
+        - Easting and northing for the provided x, y gantry positions
+    '''
+
+    # TODO: Hard-coded
+    # Linear transformation coefficients
+    ay = 3659974.971; by = 1.0002; cy = 0.0078;
+    ax = 409012.2032; bx = 0.009; cx = - 0.9986;
+
+    utm_x = ax + (bx * gantry_x) + (cx * gantry_y)
+    utm_y = ay + (by * gantry_x) + (cy * gantry_y)
+
+    return utm_x, utm_y
+
 def transform_pcd_boundaries(boundaries):
     SW = [boundaries['mins'][0],boundaries['mins'][1],1]
     NE = [boundaries['maxs'][0],boundaries['maxs'][1],1]
@@ -235,7 +258,7 @@ def get_list_pcd_close_to_point(point,metadata_dict):
     for folder in metadata_dict:
         meta = metadata_dict[folder]
         if point[0]>meta['gps_boundaries']['SW'][0] and point[0]<meta['gps_boundaries']['NE'][0] and\
-            point[1]>meta['gps_boundaries']['SW'][1]-0.5 and point[1]<meta['gps_boundaries']['NE'][1]+0.5:
+            point[1]>meta['gps_boundaries']['SW'][1]-1.5 and point[1]<meta['gps_boundaries']['NE'][1]+1.5:
             folders.append(folder)
 
     return folders

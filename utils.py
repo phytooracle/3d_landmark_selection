@@ -132,8 +132,8 @@ def draw_3d_boundaries_on_ortho(ortho,boundaries,meta_dict):
 
     for folder in meta_dict:
         gps = meta_dict[folder]['gps_boundaries']
-        up = min(UL[1],max(up, gps['NW'][1]+1.5))
-        down = max(LL[1],min(down, gps['SE'][1]-1.5))
+        up = min(UL[1],max(up, gps['NW'][1]+0.5))
+        down = max(LL[1],min(down, gps['SE'][1]-3.5))
         right = min(right, gps['NE'][0])
         left = max(left, gps['NW'][0])
 
@@ -258,7 +258,7 @@ def get_list_pcd_close_to_point(point,metadata_dict):
     for folder in metadata_dict:
         meta = metadata_dict[folder]
         if point[0]>meta['gps_boundaries']['SW'][0] and point[0]<meta['gps_boundaries']['NE'][0] and\
-            point[1]>meta['gps_boundaries']['SW'][1]-1.5 and point[1]<meta['gps_boundaries']['NE'][1]+1.5:
+            point[1]>meta['gps_boundaries']['SW'][1]-0.5 and point[1]<meta['gps_boundaries']['NE'][1]+3.5:
             folders.append(folder)
 
     return folders

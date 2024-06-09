@@ -67,17 +67,17 @@ class Config(object):
                             '--season',
                             help='The season (e.g. 10)',
                             metavar='season',
-                            default=10,
+                            # default=10,
                             type=int,
-                            required=False)
+                            required=True) #False)
 
         parser.add_argument('-p',
                             '--specie',
                             help='The specie (e.g. sorghum)',
                             metavar='specie',
-                            default="sorghum",
+                            # default="sorghum",
                             type=str,
-                            required=False)
+                            required=True) #False)
 
         parser.add_argument('-a',
                             '--alignment',

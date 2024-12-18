@@ -141,7 +141,7 @@ def draw_3d_boundaries_on_ortho(ortho,boundaries,meta_dict):
     p2 = (int((right-left)*width/gps_width)+p1[0],int((up-down)*height/gps_height)+p1[1])
     
     overlay = ortho.copy()
-    cv2.rectangle(ortho,p1,p2,(0,0,255),20)
+    cv2.rectangle(ortho,p1,p2,(0,0,255),2)
     cv2.rectangle(overlay,p1,p2,(200,200,200),-1)
     #ortho = cv2.addWeighted(overlay, 0.3, ortho, 0.7, 0)
 
